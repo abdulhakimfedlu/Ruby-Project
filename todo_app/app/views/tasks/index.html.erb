@@ -1,0 +1,42 @@
+<div class="row mb-4">
+  <div class="col">
+    <h2>Tasks</h2>
+  </div>
+  <div class="col text-end">
+    <%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="row">
+  <% @tasks.each do |task| %>
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title"><%= task.title %></h5>
+          <p class="card-text"><%= task.description %></p>
+          <div class="form-check mb-3">
+            <%= check_box_tag 'completed', '1', task.completed, 
+                class: 'form-check-input', 
+                data: { 
+                  controller: 'task',
+                  action: 'change->task#toggle',
+                  task_id: task.id
+                } %>
+            <label class="form-check-label">
+              <%= task.completed ? 'Completed' : 'Pending' %>
+            </label>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent">
+          <div class="btn-group">
+            <%= link_to 'Edit', edit_task_path(task), class: 'btn btn-sm btn-outline-primary' %>
+            <%= button_to 'Delete', task_path(task), 
+                method: :delete, 
+                class: 'btn btn-sm btn-outline-danger',
+                form: { data: { turbo_confirm: 'Are you sure?' } } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div> 

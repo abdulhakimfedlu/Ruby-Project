@@ -1,0 +1,28 @@
+<h2>My To-Do List</h2>
+     <%= link_to "Add New Task", new_todo_path %>
+     <% if @todos.any? %>
+       <table>
+         <thead>
+           <tr>
+             <th>Title</th>
+             <th>Description</th>
+             <th>Status</th>
+             <th>Actions</th>
+           </tr>
+         </thead>
+         <tbody>
+           <% @todos.each do |todo| %>
+             <tr>
+               <td><%= todo.title %></td>
+               <td><%= todo.description %></td>
+               <td><%= todo.status %></td>
+               <td>
+                 <%= link_to "Delete", todo_path(todo), method: :delete, data: { confirm: "Are you sure?" } %>
+               </td>
+             </tr>
+           <% end %>
+         </tbody>
+       </table>
+     <% else %>
+       <p>No tasks yet. Add a task to get started!</p>
+     <% end %>

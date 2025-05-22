@@ -1,0 +1,33 @@
+<h2>New Task</h2>
+     <%= form_with(model: @todo, local: true) do |form| %>
+       <% if @todo.errors.any? %>
+         <div>
+           <h3><%= pluralize(@todo.errors.count, "error") %> prevented this task from being saved:</h3>
+           <ul>
+             <% @todo.errors.full_messages.each do |message| %>
+               <li><%= message %></li>
+             <% end %>
+           </ul>
+         </div>
+       <% end %>
+
+       <div>
+         <%= form.label :title %>
+         <%= form.text_field :title %>
+       </div>
+
+       <div>
+         <%= form.label :description %>
+         <%= form.text_area :description %>
+       </div>
+
+       <div>
+         <%= form.label :status %>
+         <%= form.select :status, options_for_select([["Pending", "pending"], ["Completed", "completed"]], @todo.status) %>
+       </div>
+
+       <div>
+         <%= form.submit "Create Task" %>
+       </div>
+     <% end %>
+     <%= link_to "Back to List", todos_path %>
