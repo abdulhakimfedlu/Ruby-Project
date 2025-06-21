@@ -5,4 +5,3 @@ class PageVisitTest < ActiveSupport::TestCase
   #   assert true
   # end
 end
-
